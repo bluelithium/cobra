@@ -591,6 +591,19 @@ def report():
                            time_range=time_range)
 
 
+class GetSSid(Resource):
+    @staticmethod
+    def post():
+        data = request.json
+        sid = data.get('sid')
+        scan_list_file = os.path.join(running_path, '{sid}_list'.format(sid=sid))
+        if not os.path.exists(scan_list_file):
+            return {'code': 1002, 'msg': 'No such sid.'}
+        with open(scan_list_file, 'r') as f:
+            s_sid = json.load(f)
+        return {'code': 1001, 'result': {'s_sid': s_sid['sids'].keys()[0]}}
+
+
 @app.route('/', methods=['GET', 'POST'])
 def summary():
     a_sid = request.args.get(key='sid')
@@ -777,6 +790,7 @@ def start(host, port, debug):
 
     resource.add_resource(AddJob, '/api/add')
     resource.add_resource(JobStatus, '/api/status')
+    resource.add_resource(GetSSid, '/api/get_ssid')
     resource.add_resource(FileUpload, '/api/upload')
     resource.add_resource(ResultData, '/api/list')
     resource.add_resource(ResultDetail, '/api/detail')
