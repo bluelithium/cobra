@@ -601,12 +601,20 @@ class GetSSid(Resource):
             return {'code': 1002, 'msg': 'No such sid.'}
         with open(scan_list_file, 'r') as f:
             s_sid = json.load(f)
-        return {'code': 1001, 'result': {'s_sid': s_sid['sids'].keys()[0]}}
+        key = None
+        if 'sids' in s_sid and len(s_sid['sids'].keys()) != 0:
+            key = s_sid['sids'].keys()[0]
+        return {'code': 1001, 'result': {'s_sid': key}}
 
 
 @app.route('/', methods=['GET', 'POST'])
 def summary():
     a_sid = request.args.get(key='sid')
+    enable_web_ui = Config(level1="cobra", level2="enable_web_ui").value
+    # so ugly !!!!
+    if enable_web_ui is not '1':
+        return render_template(template_name_or_list='disable.html')
+
     key = Config(level1="cobra", level2="secret_key").value
     if a_sid is None:
         return render_template(template_name_or_list='index.html',

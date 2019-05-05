@@ -13,6 +13,7 @@ logs_directory: logs
 
 # NOTE: change it to a random string.(32\w)
 secret_key: your_secret_key
+enable_web_ui: 1
 
 [upload]
 # upload src store path, default: uploads
