@@ -18,7 +18,7 @@ enable_web_ui: 1
 [upload]
 # upload src store path, default: uploads
 # NOTE: no '/' or '\' at the end of the directory name.
-directory: /tmp/cobra
+directory: /opt/cobra/tmp
 extensions: tar.bz2|tar|gz|tgz|tar.gz|rar|zip
 max_size: 200
 
@@ -61,7 +61,7 @@ private_token:
 # http://xxx.gitlab.com/api/v3/projects/all
 gitlab_url:
 cobra_ip:
-
+code_path:/opt/cobra/tmp/code
 
 [cve]
 modified = 00B6A630D5515C9D6F61B2FC97ED7EE689A787AC52E1654D1E991BC26F4647CD
